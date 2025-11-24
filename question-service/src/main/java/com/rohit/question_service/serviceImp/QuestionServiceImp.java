@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rohit.question_service.dto.GetScoreResponseDTO;
 import com.rohit.question_service.dto.QuestionResponseDTO;
-import com.rohit.question_service.model.Questions;
+import com.rohit.question_service.model.Question;
 import com.rohit.question_service.repository.QuestionRepository;
 import com.rohit.question_service.service.QuestionService;
 
@@ -20,19 +20,19 @@ public class QuestionServiceImp implements QuestionService{
 	private QuestionRepository repo;
 
 	@Override
-	public List<Questions> getAllQuestions() {
+	public List<Question> getAllQuestions() {
 		
 		return repo.findAll();
 	}
 
 	@Override
-	public List<Questions> getQuestionsByCategory(String category) {
+	public List<Question> getQuestionsByCategory(String category) {
 		
 		return repo.findByCategory(category);
 	}
 
 	@Override
-	public Questions addQuestion(Questions question) {
+	public Question addQuestion(Question question) {
 		
 		return repo.save(question);
 	}
@@ -48,13 +48,13 @@ public class QuestionServiceImp implements QuestionService{
 	public List<QuestionResponseDTO> getQuestionByQuestionId(List<Integer> questionId) {
 		
 		List<QuestionResponseDTO> responses = new ArrayList<>();
-		List<Questions> questions = new ArrayList<>();
+		List<Question> questions = new ArrayList<>();
 		
 		for(Integer id:questionId) {
 			questions.add(repo.findById(id).get());
 		}
 		
-		for(Questions question:questions) {
+		for(Question question:questions) {
 			QuestionResponseDTO response = new QuestionResponseDTO();
 			response.setId(question.getId());
 			response.setQuestionTitle(question.getQuestionTitle());
@@ -75,7 +75,7 @@ public class QuestionServiceImp implements QuestionService{
 		int score = 0;
 		
 		for(GetScoreResponseDTO response:responses) {
-			Questions question = repo.findById(response.getId()).get();
+			Question question = repo.findById(response.getId()).get();
 			
 			if(response.getResponse().equals(question.getRightAnswer())) {
 				score++;

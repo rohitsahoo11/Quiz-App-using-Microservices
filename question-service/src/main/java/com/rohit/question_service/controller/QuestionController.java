@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rohit.question_service.dto.GetScoreResponseDTO;
 import com.rohit.question_service.dto.QuestionResponseDTO;
-import com.rohit.question_service.model.Questions;
+import com.rohit.question_service.model.Question;
 import com.rohit.question_service.serviceImp.QuestionServiceImp;
 
 @RestController
@@ -28,18 +28,18 @@ public class QuestionController {
 	private QuestionServiceImp service;
 	
 	@GetMapping("allQuestions")
-	public ResponseEntity<List<Questions>> getAllQuestions(){
+	public ResponseEntity<List<Question>> getAllQuestions(){
 		return new ResponseEntity<>(service.getAllQuestions(),HttpStatus.OK);
 	}
 	
 	@GetMapping("category/{category}")
-	public ResponseEntity<List<Questions>> getQuestionsByCategory(@PathVariable String category){
+	public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
 		return new ResponseEntity<>(service.getQuestionsByCategory(category),HttpStatus.OK);
 	}
 	
 	
 	@PostMapping("addQuestion")
-	public ResponseEntity<Questions> addQuestion(@RequestBody Questions question){
+	public ResponseEntity<Question> addQuestion(@RequestBody Question question){
 		return new ResponseEntity<>(service.addQuestion(question), HttpStatus.CREATED);
 	}
 	
