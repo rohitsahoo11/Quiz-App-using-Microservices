@@ -58,10 +58,7 @@ public class QuestionController {
 	@PostMapping("getScore")
 	public ResponseEntity<Integer> getScore(@RequestBody List<GetScoreResponseDTO> responses){
 		return new ResponseEntity<>(service.getScore(responses), HttpStatus.OK);
-	}
-	
-	
-	
+	}	
 	
 	
 	
